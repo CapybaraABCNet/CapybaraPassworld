@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>parol</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>body {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+        .m {
+    color:rgb(0, 0, 0);
+    border-radius: 15px; /* Сглаженные углы */
+    padding: 20px;
+    text-align: center; /* Центрирование текста */
+    opacity: 0;
+    transform: translateY(-50px);
+    animation: appear 2s forwards;
+    margin-bottom: 20px; /* Отступ снизу */
+    
+}
+@keyframes appear {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        img {
+            width: 300px; /* Ширина изображения */
+            border-radius: 15px; /* Сглаженные углы для изображения */
+            opacity: 0;
+            animation: imageFadeIn 2s forwards;
+            display: block; /* Отображение изображения как блочного элемента */
+            margin: 20px auto; /* Центрирование изображения */
+        }
+
+        @keyframes imageFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        div {
+            text-align: center;
+        }
+        button {
+            text-align: center;
+        }
+        label {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="m">CapybaraPassword</h1>
+    <h2 class="m">Генератор Паролей</h2>
+    <label for="length" class="m">Длина пароля:</label>
+    <input type="number" id="length" min="1" value="10">
+    
+    <div>
+        <input type="checkbox" id="includeUppercase" checked>
+        <label for="includeUppercase" class="m">Включить заглавные буквы</label>
+    </div>
+    
+    <div>
+        <input type="checkbox" id="includeNumbers" checked>
+        <label for="includeNumbers" class="m">Включить цифры</label>
+    </div>
+    
+    <div>
+        <input type="checkbox" id="includeSymbols" checked>
+        <label for="includeSymbols" class="m">Включить специальные символы</label>
+    </div>
+
+    <button onclick="generatePassword()" class="m">Сгенерировать пароль</button>
+    
+    <h2 class="m">Сгенерированный пароль:</h2>
+    <p id="password"></p>
+
+    <script>
+        function generatePassword() {
+            const length = parseInt(document.getElementById('length').value);
+            const includeUppercase = document.getElementById('includeUppercase').checked;
+            const includeNumbers = document.getElementById('includeNumbers').checked;
+            const includeSymbols = document.getElementById('includeSymbols').checked;
+
+            const b = 'abcdefghijklmnopqrstuvwxyz';
+            const b1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const c = '0123456789';
+            const s = '!"#$%^&*():;?.,/+_-=';
+
+            let ob = b;
+
+            if (includeUppercase) ob += b1;
+            if (includeSymbols) ob += s;
+            if (includeNumbers) ob += c;
+
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * ob.length);
+                password += ob[randomIndex];
+            }
+            
+            document.getElementById('password').textContent = password;
+        }
+    </script>   
+</body>
+</html>
